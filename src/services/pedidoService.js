@@ -3,15 +3,17 @@ const paisService = require('./paisService')
 
 const calcularDesconto = (quantidade) => {
     if (quantidade >= 5) return 0.12
-    if(quantidade >= 3) return 0.08
+    if(quantidade >= 3) return 0.05
     return 0
 }
 
 const criarPedido = async (cliente, pais, itens) => {
+    const infoPais = await paisService.buscarPais(pais)
+
     let subtotal = 0
     let totalItens = 0
 
-    for (const item of  itens){
+    for (const item of itens){
         const produto = produtos.find(p => p.id === item.produtoId)
 
         if(!produto) {
@@ -19,7 +21,7 @@ const criarPedido = async (cliente, pais, itens) => {
         }
 
         if(produto.estoque < item.quantidade) {
-            throw new Error(`Estoque insuficiente para o produto ${produto.nome}`)
+            throw new Error(`Estoque insuficiente para o produto ${produto.nome} - disponivel: ${produto.estoque}`)
         }
 
         subtotal += produto.preco * item.quantidade
@@ -28,8 +30,6 @@ const criarPedido = async (cliente, pais, itens) => {
 
     const desconto = calcularDesconto(totalItens)
     const total = subtotal * (1 - desconto)
-
-    const infoPais = await paisService.buscarPais(pais)
 
     for (const item of itens) {
         const produto = produtos.find(p => p.id === item.produtoId)

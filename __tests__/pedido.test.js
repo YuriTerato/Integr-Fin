@@ -5,11 +5,11 @@ const app = require('../app')
 describe('Testes do pedido', () => {
     
     //Teste 1 - desconto progressivo
-    test('deve calcular desconto progressivo corretamente', () => {
+  test('deve calcular desconto progressivo corretamente', () => {
     expect(calcularDesconto(1)).toBe(0)
     expect(calcularDesconto(2)).toBe(0)
-    expect(calcularDesconto(3)).toBe(0.08)
-    expect(calcularDesconto(4)).toBe(0.08)
+    expect(calcularDesconto(3)).toBe(0.05)
+    expect(calcularDesconto(4)).toBe(0.05)
     expect(calcularDesconto(5)).toBe(0.12)
   })
 

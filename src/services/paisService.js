@@ -4,17 +4,13 @@ const API_KEY = 'rc_live_945c2fa38dab48c78490104340506b18'
 
 const buscarPais = async (codigo) => {
   try {
-    const resposta = await axios.get(`https://api.restcountries.com/countries/v5?q=${codigo}`, {
+    const resposta = await axios.get(`https://api.restcountries.com/countries/v5/codes.alpha_2/${codigo.toUpperCase()}`, {
       headers: {
         Authorization: `Bearer ${API_KEY}`
       }
     })
 
-    const objetos = resposta.data.data.objects
-    const dados = objetos.find(p => 
-      p.codes.alpha_2 === codigo.toUpperCase() || 
-      p.codes.alpha_3 === codigo.toUpperCase()
-    )
+    const dados = resposta.data.data.objects[0]
 
     if (!dados) {
       throw new Error(`País não encontrado`)

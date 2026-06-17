@@ -6,13 +6,13 @@ const listar = (req, res) => {
 }
 
 const criar = (req, res) => {
-    const {nome, preco, estoque } = req.boddy
+    const { nome, preco, estoque, categoria } = req.body
     
-    if (!nome || !preco || !estoque) {
-        return res.status(400).json({ erro: "nome, preco e estoque sao obrigatorios"})
+    if (!nome || !preco || !estoque || !categoria) {
+        return res.status(400).json({ erro: "nome, preco, estoque e categoria sao obrigatorios"})
     }
 
-    const novoProduto = produtoService.criar(nome, preco, estoque)
+    const novoProduto = produtoService.criar(nome, preco, estoque, categoria)
     res.status(201).json(novoProduto)
 }
 
