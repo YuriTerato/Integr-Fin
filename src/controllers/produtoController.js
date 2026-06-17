@@ -20,7 +20,7 @@ const atualizar = (req, res) => {
     const id = parseInt(req.params.id)
    
     try{
-        const produto = produtoService.atualizar(id, req.boddy)
+        const produto = produtoService.atualizar(id, req.body)
         res.json(produto)
         }  catch (erro){
             res.status(404).json({erro: erro.message})
